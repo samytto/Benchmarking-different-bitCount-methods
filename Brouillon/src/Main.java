@@ -63,6 +63,9 @@ public class Main {
     }
 	
 	/**
+	 * This function was dveloped by Alessandro Colantonio
+	 * see : https://github.com/metamx/extendedset/blob/master/src/main/java/it/uniroma3/mat/extendedset/utilities/BitCount.java#L44-L49 
+	 * 
 	 * Population count
 	 * <p>
 	 * It counts a single word
