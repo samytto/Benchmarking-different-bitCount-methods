@@ -1,4 +1,6 @@
-
+/*
+ * (c) Samy Chambi and daniel Lemire.
+ */
 
 import java.util.Arrays;
 import java.util.HashSet;

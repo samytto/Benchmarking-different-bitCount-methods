@@ -1,3 +1,6 @@
+/*
+ * (c) Samy Chambi and Daniel Lemire
+ */
 
 public class Main {
 
