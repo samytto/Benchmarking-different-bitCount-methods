@@ -9,8 +9,6 @@ import java.util.Random;
  * 
  * This is a data generator object reproducing the models used
  * by Colantonio and Di Pietro, Concise: Compressed n Composable Integer Set
- * 
- * @author Daniel Lemire
  *
  */
 public class DataGenerator {
