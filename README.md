@@ -1,4 +1,4 @@
-ConciseBitCount.count_vs._JavaInteger.bitCount
+Benchmarking-different-bitCount-methods
 ==============================================
 
-Benchmarking the time performances of the two functions extendedSet BitCount.count() and the Java Integer.bitCount(). 
+Benchmarking timings of different BitCount methods. 
