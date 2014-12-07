@@ -148,7 +148,7 @@ public class Main {
             }
             after = System.nanoTime();
 
-            System.out.println("card = "+card+", O'Neil lookup time = "+((after-bef)/100)+" nanosec");
+            System.out.println("card = "+card+", O'Neil look-up count time = "+((after-bef)/100)+" nanosec");
         }
     }
 }
