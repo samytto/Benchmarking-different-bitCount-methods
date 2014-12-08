@@ -51,46 +51,8 @@ public class Main {
         return card;
     }
 
-    public static void main(String[] args) {
-       // performing a dry-run
-        for(int n=100; n<=1000000; n*=10) {
-            System.out.println("Dry-run Number of ints = "+n);
-            DataGenerator gen = new DataGenerator(n);
-            gen.setUniform();
-            int ints[] = gen.getUniform(0.500);
-            for(int i=0; i<ints.length; i++)
-            	ints[i]&=0x7FFF; //To don't meet negative numbers when dealing with short integers
-            int card = 0;
-            for(int i=0; i<100; i++) {
-                card += sumConciseCount(ints);
-            }
-            card = 0;
-            for(int i=0; i<100; i++) {
-                card += sumIntegerBitCount(ints);
-            }
-          //Trying Long.bitcount as what Roaring does
-            long longInts[] = new long[ints.length/2];
-            for(int i=0; i<ints.length; i+=2)
-            	longInts[i/2]=(ints[i]<<32)|ints[i+1];
-            for(int i=0; i<100; i++) {
-                card = sumLongBitCount(longInts);
-            }
-            //trying O'Neil Lookup COUNT function
-            short shortInts[] = new short[ints.length*2];
-            for(int i=0; i<ints.length; i++) {
-            	shortInts[2*i] = (short) (ints[i]>>16);
-            	shortInts[2*i+1] = (short) (ints[i]);
-            }
-            card = 0;
-            short[] shcount = new short[1<<16];
-            for(int i=0; i<shcount.length; i++)
-            	shcount[i]=(short) Integer.bitCount(i);
-            for(int i=0; i<100; i++) {
-                card = sumLookup(shortInts, shcount);
-            }
-        }
-        
-        //Launching the benchmarks
+    private static void benchmark(boolean verbose) {
+    	
         for(int n=100; n<=10000000; n*=10) {
             System.out.println("Number of ints = "+n);
             long bef, after;
@@ -107,7 +69,7 @@ public class Main {
             }
             after = System.nanoTime();
 
-            System.out.println("card = "+card+", Count Concise time = "+((after-bef)/100)+" nanosec");
+            if(verbose) System.out.println("card = "+card+", Count Concise time = "+((after-bef)/100)+" nanosec");
 
             //Trying Integer.bitCount (popcnt)
             card = 0;
@@ -117,7 +79,7 @@ public class Main {
             }
             after = System.nanoTime();
 
-            System.out.println("card = "+card+", Integer.bitCount(popcnt) time = "+((after-bef)/100)+" nanosec");
+            if(verbose) System.out.println("card = "+card+", Integer.bitCount(popcnt) time = "+((after-bef)/100)+" nanosec");
             
             //Trying Long.bitcount as what Roaring does
             card = 0;
@@ -130,7 +92,7 @@ public class Main {
             }
             after = System.nanoTime();
 
-            System.out.println("card = "+card+", Long.bitCount time = "+((after-bef)/100)+" nanosec ");
+            if(verbose) System.out.println("card = "+card+", Long.bitCount time = "+((after-bef)/100)+" nanosec ");
             
             //Trying O'Neil Lookup COUNT function
             short shortInts[] = new short[ints.length*2];
@@ -148,7 +110,15 @@ public class Main {
             }
             after = System.nanoTime();
 
-            System.out.println("card = "+card+", O'Neil look-up count time = "+((after-bef)/100)+" nanosec");
+            if(verbose) System.out.println("card = "+card+", O'Neil look-up count time = "+((after-bef)/100)+" nanosec");
         }
     }
+    
+    public static void main(String[] args) {
+       // performing a dry-run
+        benchmark(false);      
+       //Launching the benchmarks
+        benchmark(true);
+    }
+    
 }
